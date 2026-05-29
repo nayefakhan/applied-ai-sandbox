@@ -5,6 +5,8 @@ describe exactly what "done" means.
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 from flask import Flask, render_template, request, redirect, url_for
 
 
@@ -32,7 +34,14 @@ def create_app() -> Flask:
                 errors["body"] = "Body is required"
             if errors:
                 return render_template("new_note.html", title=title, body=body, errors=errors)
-            app.notes.append({"title": title, "body": body})
+            text_color = (request.form.get("text_color") or "#000000").strip()
+            app.notes.append({
+                "title": title,
+                "body": body,
+                "tags": "",
+                "created_at": datetime.now(timezone.utc),
+                "text_color": text_color,
+            })
             return redirect(url_for("home"))
         return render_template("new_note.html")
 
