@@ -34,7 +34,7 @@
   </form>
 
   <script>
-    const picker = document.getElementById('text_color');
+    const color = document.getElementById('text_color');
     const title  = document.getElementById('title');
     const body   = document.getElementById('body');
 
@@ -43,8 +43,8 @@
       body.style.color  = color;
     }
 
-    picker.addEventListener('input', () => applyColor(picker.value));
-    applyColor(picker.value);
+    color.addEventListener('input', () => applyColor(color.value));
+    applyColor(color.value);
   </script>
 </body>
 </html>
