@@ -33,7 +33,7 @@ def create_app() -> Flask:
             if not body:
                 errors["body"] = "Body is required"
             if errors:
-                return render_template("new_note.html", title=title, body=body, errors=errors)
+                return render_template("new_note.html", title=title, body=body, errors=errors, idx=None)
             text_color = (request.form.get("text_color") or "#000000").strip()
             app.notes.append({
                 "title": title,
@@ -43,7 +43,31 @@ def create_app() -> Flask:
                 "text_color": text_color,
             })
             return redirect(url_for("home"))
-        return render_template("new_note.html")
+        return render_template("new_note.html", idx=None)
+
+    @app.route("/notes/<int:idx>/edit", methods=["GET", "POST"])
+    def edit_note(idx):
+        if idx >= len(app.notes):
+            return redirect(url_for("home"))
+        note = app.notes[idx]
+        if request.method == "POST":
+            title = (request.form.get("title") or "").strip()
+            body = (request.form.get("body") or "").strip()
+            errors = {}
+            if not title:
+                errors["title"] = "Title is required"
+            if not body:
+                errors["body"] = "Body is required"
+            if errors:
+                return render_template("new_note.html", title=title, body=body,
+                                       errors=errors, idx=idx,
+                                       text_color=note["text_color"])
+            note["title"] = title
+            note["body"] = body
+            note["text_color"] = (request.form.get("text_color") or "#000000").strip()
+            return redirect(url_for("home"))
+        return render_template("new_note.html", title=note["title"], body=note["body"],
+                               text_color=note["text_color"], idx=idx)
 
     # TASK 02 will add a /notes/<idx>/delete route here.
 

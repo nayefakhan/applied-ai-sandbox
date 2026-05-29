@@ -14,9 +14,9 @@
   </style>
 </head>
 <body>
-  <h1>New note :)</h1>
+  <h1>{% if idx is not none %}Edit note{% else %}New note :){% endif %}</h1>
 
-  <form method="POST">
+  <form method="POST" {% if idx is not none %}action="{{ url_for('edit_note', idx=idx) }}"{% endif %}>
     <label for="title">Title</label>
     <input id="title" name="title" type="text" value="{{ title or '' }}">
     {% if errors and errors.title %}<div class="error">{{ errors.title }}</div>{% endif %}
@@ -29,7 +29,7 @@
     <input id="text_color" name="text_color" type="color" value="{{ text_color or '#000000' }}" style="width:auto;padding:0.15rem;height:2.2rem;cursor:pointer;">
 
     <div class="actions">
-      <button type="submit">Save note</button>
+      <button type="submit">Change Note</button>
       <a href="{{ url_for('home') }}">Cancel</a>
     </div>
   </form>
