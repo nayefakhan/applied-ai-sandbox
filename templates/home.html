@@ -11,12 +11,11 @@
     .note h3 { margin: 0 0 0.25rem; }
     .note .created { color: #888; font-size: 0.85rem; margin: 0 0 0.5rem; }
     a.btn { display: inline-block; background: #1a2540; color: #fff; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; }
-    a.edit-btn { display: inline-block; background: #444; color: #fff; padding: 0.3rem 0.75rem; border-radius: 6px; text-decoration: none; font-size: 0.85rem; margin-top: 0.5rem; }
   </style>
 </head>
 <body>
   <h1>Sandbox Notes</h1>
-  <p class="meta">A tiny note-taking app. Practice ground for the Applied AI cohort. Add notes by title, body text, and color.</p>
+  <p class="meta">A tiny note-taking app. Practice ground for the Applied AI cohort.</p>
 
   <a class="btn" href="{{ url_for('new_note') }}">+ New note</a>
 
@@ -29,7 +28,6 @@
           <p class="created">{{ note.created_at.strftime('%b %d, %Y at %I:%M %p UTC') }}</p>
         {% endif %}
         <p style="color: {{ note.text_color or '#000000' }}">{{ note.body }}</p>
-        <a class="edit-btn" href="{{ url_for('edit_note', idx=loop.index0) }}">Edit</a>
       </div>
     {% endfor %}
   {% else %}
