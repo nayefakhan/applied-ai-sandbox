@@ -28,11 +28,13 @@ def create_app() -> Flask:
             title = (request.form.get("title") or "").strip()
             body = (request.form.get("body") or "").strip()
             # TASK 01 will add validation here.
+            text_color = (request.form.get("text_color") or "#000000").strip()
             app.notes.append({
                 "title": title,
                 "body": body,
                 "tags": "",
                 "created_at": datetime.now(timezone.utc),
+                "text_color": text_color,
             })
             return redirect(url_for("home"))
         return render_template("new_note.html")

@@ -23,11 +23,11 @@
   {% if notes %}
     {% for note in notes %}
       <div class="note">
-        <h3>{{ note.title }}</h3>
+        <h3 style="color: {{ note.text_color or '#000000' }}">{{ note.title }}</h3>
         {% if note.created_at %}
           <p class="created">{{ note.created_at.strftime('%b %d, %Y at %I:%M %p UTC') }}</p>
         {% endif %}
-        <p>{{ note.body }}</p>
+        <p style="color: {{ note.text_color or '#000000' }}">{{ note.body }}</p>
       </div>
     {% endfor %}
   {% else %}

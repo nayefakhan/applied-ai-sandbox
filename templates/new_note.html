@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-  <h1>New note</h1>
+  <h1>New note :)</h1>
 
   <form method="POST">
     <label for="title">Title</label>
@@ -24,10 +24,27 @@
     <label for="body">Body</label>
     <textarea id="body" name="body" rows="6">{{ body or '' }}</textarea>
 
+    <label for="text_color">Text color</label>
+    <input id="text_color" name="text_color" type="color" value="{{ text_color or '#000000' }}" style="width:auto;padding:0.15rem;height:2.2rem;cursor:pointer;">
+
     <div class="actions">
       <button type="submit">Save note</button>
       <a href="{{ url_for('home') }}">Cancel</a>
     </div>
   </form>
+
+  <script>
+    const picker = document.getElementById('text_color');
+    const title  = document.getElementById('title');
+    const body   = document.getElementById('body');
+
+    function applyColor(color) {
+      title.style.color = color;
+      body.style.color  = color;
+    }
+
+    picker.addEventListener('input', () => applyColor(picker.value));
+    applyColor(picker.value);
+  </script>
 </body>
 </html>
